@@ -30,11 +30,11 @@ namespace tfm{
     template <typename T>
     tvec3<T>		operator * (const tvec3<T> &v1, const tvec3<T> &v2);	//@ Pointwise multiplication.
     template <typename T>
-    tvec3<T>		operator * (const tvec3<T> &v, real_t k);
+    tvec3<T>		operator * (const tvec3<T> &v, T k);
     template <typename T>
-    tvec3<T>		operator * (real_t k, const tvec3<T> &v);
+    tvec3<T>		operator * (T k, const tvec3<T> &v);
     template <typename T>
-    tvec3<T>		operator / (const tvec3<T> &v, real_t k);
+    tvec3<T>		operator / (const tvec3<T> &v, T k);
     template <typename T>
     tvec3<T>&		operator += (tvec3<T> &v1, const tvec3<T> &v2);
     template <typename T>
@@ -42,31 +42,32 @@ namespace tfm{
     template <typename T>
     tvec3<T>&		operator *= (tvec3<T> &v1, const tvec3<T> &v2);
     template <typename T>
-    tvec3<T>&		operator += (tvec3<T> &v, real_t k);
+    tvec3<T>&		operator += (tvec3<T> &v, T k);
     template <typename T>
-    tvec3<T>&		operator -= (tvec3<T> &v, real_t k);
+    tvec3<T>&		operator -= (tvec3<T> &v, T k);
     template <typename T>
-    tvec3<T>&		operator *= (tvec3<T> &v, real_t k);
+    tvec3<T>&		operator *= (tvec3<T> &v, T k);
     template <typename T>
-    tvec3<T>&		operator /= (tvec3<T> &v, real_t k);
+    tvec3<T>&		operator /= (tvec3<T> &v, T k);
     template <typename T>
     std::ostream&	operator << (std::ostream &stream, const tvec3<T> &v);
     template <typename T>
     std::istream&	operator >> (std::istream &stream, tvec3<T> &v);
 
     template <typename T>
-    real_t			isqrt(const tvec3<T> &v);
+    T   			isqrt(const tvec3<T> &v);   //@ Fast inverse square root from Quake3
     template <typename T>
-    real_t			length(const tvec3<T> &v);
+    T   			length(const tvec3<T> &v);
     template <typename T>
     tvec3<T>		normalize(const tvec3<T> &v);
     template <typename T>
-    real_t			dot(const tvec3<T> &v1, const tvec3<T> &v2);
+    T	    		dot(const tvec3<T> &v1, const tvec3<T> &v2);
     template <typename T>
     tvec3<T>		cross(const tvec3<T> &v1, const tvec3<T> &v2);
 
-    typedef tvec3<real_t> vec3;
-    typedef tvec3<int> ivec3;
+    typedef tvec3<float>        vec3;
+    typedef tvec3<double>       dvec3;
+    typedef tvec3<int>          ivec3;
     typedef tvec3<unsigned int> uvec3;
 }
 

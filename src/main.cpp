@@ -1,12 +1,8 @@
+#include "tfm.h"
 #include <iostream>
 
-#include "tfm.h"
-
-using namespace std;
-using namespace tfm;
-
 int main(int argc, char **argv){
-    vec3 v;
-    cout << v << endl;
+    tfm::vec3 v(0.0f, 1.0f, 0.0f);
+    std::cout << v << std::endl;
     return 0;
 }

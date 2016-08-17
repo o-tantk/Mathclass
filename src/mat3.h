@@ -1,7 +1,5 @@
 #pragma once
 
-struct quat;
-
 namespace tfm{
     //@ 3x3 matrix in column vector convention.
     template <typename T>

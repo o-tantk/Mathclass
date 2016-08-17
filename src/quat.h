@@ -3,14 +3,14 @@
 namespace tfm{
     struct quat{
         union {
-            struct { real_t w; vec3 v; };
+            struct { real_t s; vec3 v; };
             struct { real_t w, x, y, z; };
         };
 
         quat() : w(1.0) { }
-        quat(real_t w, real_t x, real_t y, real_t z) : w(w), v(x, y, z) { }
-        quat(real_t w, const vec3 &v) : w(w), v(v) { }
-        quat(const mat3 &m);
+        quat(real_t w, real_t x, real_t y, real_t z) : w(w), x(x), y(y), z(z) { }
+        quat(real_t s, const tvec3<real_t> &v) : s(s), v(v) { }
+        quat(const tmat3<real_t> &m);
     };
 
     quat operator - (const quat &q);
@@ -27,7 +27,7 @@ namespace tfm{
     quat     inverse(const quat &q);
     quat     normalize(const quat &q);
     real_t   dot(const quat &q1, const quat &q2);
-    quat     exp(const Vector &v);
+    quat     exp(const vec3 &v);
     vec3     log(const quat &q);
     quat     slerp(const quat &q1, const quat &q2, real_t t);
 }
