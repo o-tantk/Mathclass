@@ -2,7 +2,7 @@ CXX=g++
 CXXFLAGS=-g -std=c++11 -stdlib=libc++ -Wall
 
 SRCDIR=src
-TARGET=main
+TARGET=tfm
 
 #SRCS=$(wildcard $(SRCDIR)/*.cpp)
 SRCS=$(SRCDIR)/main.cpp

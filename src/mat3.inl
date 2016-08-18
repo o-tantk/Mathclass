@@ -1,10 +1,6 @@
-#include <cstring>
-#include <iomanip>
-#include <cassert>
-
 namespace tfm{
     template <typename T>
-    tmat3<T>::tmat3<T>(T e0, T e1, T e2, T e3, T e4, T e5, T e6, T e7, T e8) 
+    tmat3<T>::tmat3(T e0, T e1, T e2, T e3, T e4, T e5, T e6, T e7, T e8) 
     {
         cols[0] = tvec3<T>(e0, e1, e2);
         cols[1] = tvec3<T>(e3, e4, e5);
@@ -12,45 +8,41 @@ namespace tfm{
     }
 
     template <typename T>
-    tmat3<T>::tmat3<T>(const T m[9]) {
+    tmat3<T>::tmat3(const T m[9]) {
         cols[0] = tvec3<T>(m[0], m[1], m[2]);
         cols[1] = tvec3<T>(m[3], m[4], m[5]);
         cols[2] = tvec3<T>(m[6], m[7], m[8]);
     }
 
     template <typename T>
-    tmat3<T>::tmat3<T>(const tvec3<T> &v1, const tvec3<T> &v2, const tvec3<T> &v3) {
+    tmat3<T>::tmat3(const tvec3<T> &v1, const tvec3<T> &v2, const tvec3<T> &v3) {
         cols[0] = v1;
         cols[1] = v2;
         cols[2] = v3;
     }
-
+/*
     //@ Quater to matrix.
-    template <>
-    tmat3<real_t>::tmat3<real_t>(const quat &q) {
-        tmat3<real_t> m;
+    template <typename type_t>
+    tmat3<type_t> mat3_cast(const quat &q) {
+        tmat3<type_t> m;
 
-        real_t two_x_square = static_cast<real_t>(2) * q.x * q.x;
-        real_t two_y_square = static_cast<real_t>(2) * q.y * q.y;
-        real_t two_z_square = static_cast<real_t>(2) * q.z * q.z;
-        real_t two_xy = static_cast<real_t>(2) * q.x * q.y;
-        real_t two_yz = static_cast<real_t>(2) * q.y * q.z;
-        real_t two_zx = static_cast<real_t>(2) * q.z * q.x;
-        real_t two_wx = static_cast<real_t>(2) * q.w * q.x;
-        real_t two_wy = static_cast<real_t>(2) * q.w * q.y;
-        real_t two_wz = static_cast<real_t>(2) * q.w * q.z;
+        type_t two_x_square = static_cast<type_t>(2) * q.x * q.x;
+        type_t two_y_square = static_cast<type_t>(2) * q.y * q.y;
+        type_t two_z_square = static_cast<type_t>(2) * q.z * q.z;
+        type_t two_xy = static_cast<type_t>(2) * q.x * q.y;
+        type_t two_yz = static_cast<type_t>(2) * q.y * q.z;
+        type_t two_zx = static_cast<type_t>(2) * q.z * q.x;
+        type_t two_wx = static_cast<type_t>(2) * q.w * q.x;
+        type_t two_wy = static_cast<type_t>(2) * q.w * q.y;
+        type_t two_wz = static_cast<type_t>(2) * q.w * q.z;
 
-        m[0] = tvec3<real_t>(static_cast<real_t>(1) - two_y_square - two_z_square, two_xy - two_wz, two_zx + two_wy);
-        m[1] = tvec3<real_t>(two_xy + two_wz, static_cast<real_t>(1) - two_x_square - two_z_square, two_yz - two_wx);
-        m[2] = tvec3<real_t>(two_zx - two_wy, two_yz + two_wx, static_cast<real_t>(1) - two_x_square - two_y_square);
+        m[0] = tvec3<type_t>(static_cast<type_t>(1) - two_y_square - two_z_square, two_xy - two_wz, two_zx + two_wy);
+        m[1] = tvec3<type_t>(two_xy + two_wz, static_cast<type_t>(1) - two_x_square - two_z_square, two_yz - two_wx);
+        m[2] = tvec3<type_t>(two_zx - two_wy, two_yz + two_wx, static_cast<type_t>(1) - two_x_square - two_y_square);
 
         return m;
-
-        //cols[0] = tvec3<T>(1.0f - 2.0f*(q.y)*(q.y) - 2.0f*(q.z)*(q.z), 2.0f*(q.x)*(q.y) - 2.0f*(q.w)*(q.z), 2.0f*(q.x)*(q.z) + 2.0f*(q.w)*(q.y));
-        //cols[1] = tvec3<T>(2.0f*(q.x)*(q.y) + 2.0f*(q.w)*(q.z), 1.0f - 2.0f*(q.x)*(q.x) - 2.0f*(q.z)*(q.z), 2.0f*(q.y)*(q.z) - 2.0f*(q.w)*(q.x));
-        //cols[2] = tvec3<T>(2.0f*(q.x)*(q.z) - 2.0f*(q.w)*(q.y), 2.0f*(q.y)*(q.z) + 2.0f*(q.w)*(q.x), 1.0f - 2.0f*(q.x)*(q.x) - 2.0f*(q.y)*(q.y));
     }
-
+*/
     template <typename T>
     tvec3<T>& tmat3<T>::operator [] (int i) {
         assert(0 <= i && i <= 2);
