@@ -1,35 +1,55 @@
 #pragma once
 
+#include <iomanip>
+#include <limits>
+#include <cmath>
+#include <cassert>
+
 namespace tfm{
-    struct quat{
+    template <typename type_t>
+    struct tquat{
         union {
-            struct { real_t s; vec3 v; };
-            struct { real_t w, x, y, z; };
+            struct { type_t s; tvec3<type_t> v; };
+            struct { type_t w, x, y, z; };
         };
 
-        quat() : w(1.0) { }
-        quat(real_t w, real_t x, real_t y, real_t z) : w(w), x(x), y(y), z(z) { }
-        quat(real_t s, const tvec3<real_t> &v) : s(s), v(v) { }
-        quat(const tmat3<real_t> &m);
+        tquat() : w(1.0) { }
+        tquat(type_t w, type_t x, type_t y, type_t z) : w(w), x(x), y(y), z(z) { }
+        tquat(type_t s, const tvec3<type_t> &v) : s(s), v(v) { }
+        //tquat(const tmat3<type_t> &m);
+
+        tquat<type_t> operator - ()                         const;
+        tquat<type_t> operator + (const tquat<type_t> &q)   const;
+        tquat<type_t> operator - (const tquat<type_t> &q)   const;
+        tquat<type_t> operator * (const tquat<type_t> &q)   const;
+        tquat<type_t> operator * (type_t k)                 const;
+        tquat<type_t> operator / (type_t k)                 const;
     };
 
-    quat operator - (const quat &q);
-    quat operator + (const quat &q1, const quat &q2);
-    quat operator - (const quat &q1, const quat &q2);
-    quat operator * (const quat &q1, const quat &q2);
-    quat operator * (const quat &q, real_t k);
-    quat operator * (real_t k, const quat &q);
-    quat operator / (const quat &q, real_t k);
-    std::ostream& operator << (std::ostream &stream, const quat &q);
-    std::istream& operator >> (std::istream &stream, quat &q);
+    template <typename type_t>
+    tquat<type_t> operator * (type_t k, const quat<type_t> &q);
+    template <typename type_t>
+    std::ostream& operator << (std::ostream &stream, const tquat<type_t> &q);
+    template <typename type_t>
+    std::istream& operator >> (std::istream &stream, tquat<type_t> &q);
 
-    real_t   length(const quat &q);
-    quat     inverse(const quat &q);
-    quat     normalize(const quat &q);
-    real_t   dot(const quat &q1, const quat &q2);
-    quat     exp(const vec3 &v);
-    vec3     log(const quat &q);
-    quat     slerp(const quat &q1, const quat &q2, real_t t);
+    template <typename type_t>
+    type_t              length      (const tquat<type_t> &q);
+    template <typename type_t>
+    tquat<type_t>       inverse     (const quat &q);
+    template <typename type_t>
+    tquat<type_t>       normalize   (const quat &q);
+    template <typename type_t>
+    type_t              dot         (const tquat<type_t> &q1, const tquat<type_t> &q2);
+    template <typename type_t>
+    tquat<type_t>       exp         (const tvec3<type_t> &v);
+    template <typename type_t>
+    tvec3<type_t>       log         (const tquat<type_t> &q);
+    template <typename type_t>
+    tquat<type_t>       slerp       (const tquat<type_t> &q1, const tquat<type_t> &q2, type_t t);
+
+    typedef tquat<float>    quat;
+    typedef tquat<double>   dquat;
 }
 
 #include "quat.inl"

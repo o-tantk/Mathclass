@@ -1,126 +1,140 @@
 namespace tfm{
-    template <typename T>
-    T& tvec3<T>::operator [] (int i) {
+    template <typename type_t>
+    type_t& tvec3<type_t>::operator [] (int i) {
         assert(0 <= i && i <= 2);
         return *(&x + i);
     }
 
-    template <typename T>
-    T tvec3<T>::operator [] (int i) const {
+    template <typename type_t>
+    type_t tvec3<type_t>::operator [] (int i) const {
         assert(0 <= i && i <= 2);
         return *(&x + i);
     }
 
-    template <typename T>
-    tvec3<T> operator - (const tvec3<T> &v){
-        return tvec3<T>(-(v.x), -(v.y), -(v.z));
+    // -v
+    template <typename type_t>
+    tvec3<type_t> tvec3<type_t>::operator - () const{
+        return tvec3<type_t>(-(this->x), -(this->y), -(this->z));
     }
 
-    template <typename T>
-    tvec3<T> operator + (const tvec3<T> &v1, const tvec3<T> &v2){
-        return tvec3<T>(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
+    // v1 + v2
+    template <typename type_t>
+    tvec3<type_t> tvec3<type_t>::operator + (const tvec3<type_t> &v) const {
+        return tvec3<type_t>(this->x + v.x, this->y + v.y, this->z + v.z);
     }
 
-    template <typename T>
-    tvec3<T> operator - (const tvec3<T> &v1, const tvec3<T> &v2){
-        return tvec3<T>(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z);
+    // v1 - v2
+    template <typename type_t>
+    tvec3<type_t> tvec3<type_t>::operator - (const tvec3<type_t> &v) const {
+        return tvec3<type_t>(this->x - v.x, this->y - v.y, this->z - v.z);
     }
 
-    template <typename T>
-    tvec3<T> operator * (const tvec3<T> &v1, const tvec3<T> &v2) {
-        return tvec3<T>(v1.x * v2.x, v1.y * v2.y, v1.z * v2.z);
+    // v1 .* v2
+    template <typename type_t>
+    tvec3<type_t> tvec3<type_t>::operator * (const tvec3<type_t> &v) const {
+        return tvec3<type_t>(this->x * v.x, this->y * v.y, this->z * v.z);
     }
 
-    template <typename T>
-    tvec3<T> operator * (const tvec3<T> &v, T k){
-        return tvec3<T>(v.x * k, v.y * k, v.z * k);
+    // v * k
+    template <typename type_t>
+    tvec3<type_t> tvec3<type_t>::operator * (type_t k) const {
+        return tvec3<type_t>(this->x * k, this->y * k, this->z * k);
     }
 
-    template <typename T>
-    tvec3<T> operator * (T k, const tvec3<T> &v){
-        return tvec3<T>(v.x * k, v.y * k, v.z * k);
+    // v / k
+    template <typename type_t>
+    tvec3<type_t> tvec3<type_t>::operator / (type_t k) const {
+        return tvec3<type_t>(this->x / k, this->y / k, this->z / k);
     }
 
-    template <typename T>
-    tvec3<T> operator / (const tvec3<T> &v, T k){
-        return tvec3<T>(v.x / k, v.y / k, v.z / k);
+    // v1 += v2
+    template <typename type_t>
+    tvec3<type_t>& tvec3<type_t>::operator += (const tvec3<type_t> &v) {
+        this->x += v.x;
+        this->y += v.y;
+        this->z += v.z;
+        return *this;
     }
 
-    template <typename T>
-    tvec3<T>& operator += (tvec3<T> &v1, const tvec3<T> &v2){
-        v1.x += v2.x;
-        v1.y += v2.y;
-        v1.z += v2.z;
-        return v1;
+    // v1 -= v2
+    template <typename type_t>
+    tvec3<type_t>& tvec3<type_t>::operator -= (const tvec3<type_t> &v) {
+        this->x -= v.x;
+        this->y -= v.y;
+        this->z -= v.z;
+        return *this;
     }
 
-    template <typename T>
-    tvec3<T>& operator -= (tvec3<T> &v1, const tvec3<T> &v2){
-        v1.x -= v2.x;
-        v1.y -= v2.y;
-        v1.z -= v2.z;
-        return v1;
+    // v += k
+    template <typename type_t>
+    tvec3<type_t>& tvec3<type_t>::operator += (type_t k) {
+        this->x += k;
+        this->y += k;
+        this->z += k;
+        return *this;
     }
 
-    template <typename T>
-    tvec3<T>&	operator += (tvec3<T> &v, T k){
-        v.x += k;
-        v.y += k;
-        v.z += k;
-        return v;
+    // v -= k
+    template <typename type_t>
+    tvec3<type_t>& tvec3<type_t>::operator -= (type_t k) {
+        this->x -= k;
+        this->y -= k;
+        this->z -= k;
+        return *this;
     }
 
-    template <typename T>
-    tvec3<T>& operator -= (tvec3<T> &v, T k){
-        v.x -= k;
-        v.y -= k;
-        v.z -= k;
-        return v;
+    // v1 .*= v2
+    template <typename type_t>
+    tvec3<type_t>& tvec3<type_t>::operator *= (const tvec3<type_t> &v) {
+        this->x *= v.x;
+        this->y *= v.y;
+        this->z *= v.z;
+        return *this;
     }
 
-    template <typename T>
-    tvec3<T>& operator *= (tvec3<T> &v1, const tvec3<T> &v2) {
-        v1.x *= v2.x;
-        v1.y *= v2.y;
-        v1.z *= v2.z;
-        return v1;
+    // v *= k
+    template <typename type_t>
+    tvec3<type_t>& tvec3<type_t>::operator *= (type_t k){
+        this->x *= k;
+        this->y *= k;
+        this->z *= k;
+        return *this;
     }
 
-    template <typename T>
-    tvec3<T>&	operator *= (tvec3<T> &v, T k){
-        v.x *= k;
-        v.y *= k;
-        v.z *= k;
-        return v;
-    }
-
-    template <typename T>
-    tvec3<T>& operator /= (tvec3<T> &v, T k){
+    // v /= k
+    template <typename type_t>
+    tvec3<type_t>& tvec3<type_t>::operator /= (type_t k){
         assert(k != 0.0);
-        v.x /= k;
-        v.y /= k;
-        v.z /= k;
-        return v;
+        this->x /= k;
+        this->y /= k;
+        this->z /= k;
+        return *this;
     }
 
-    template <typename T>
-    std::ostream& operator << (std::ostream &stream, const tvec3<T> &v){
+    // k * v
+    template <typename type_t>
+    tvec3<type_t> operator * (type_t k, const tvec3<type_t> &v){
+        return tvec3<type_t>(v.x * k, v.y * k, v.z * k);
+    }
+
+    template <typename type_t>
+    std::ostream& operator << (std::ostream &stream, const tvec3<type_t> &v){
         stream << std::fixed << std::setprecision(2) << std::setfill('0');
         stream << "(" << v.x << ", " << v.y << ", " << v.z << ")";
         return stream;
     }
 
-    template <typename T>
-    std::istream& operator >> (std::istream &stream, tvec3<T> &v){
+    template <typename type_t>
+    std::istream& operator >> (std::istream &stream, tvec3<type_t> &v){
         stream >> v.x >> v.y >> v.z;
         return stream;
     }
 
-    template <typename T>
-    T isqrt(const tvec3<T> &v) {
+    template <typename type_t>
+    type_t isqrt(const tvec3<type_t> &v) {
         // Source codes from Quake3
         
-        float number = v.x * v.x + v.y * v.y + v.z * v.z;
+        float number = float(v.x * v.x + v.y * v.y + v.z * v.z);
         long i;
         float x2, y;
         const float threehalfs = 1.5F;
@@ -133,30 +147,35 @@ namespace tfm{
         y = y * (threehalfs - (x2 * y * y));	// 1st iteration
         //y = y * (threehalfs - (x2 * y * y));	// 2nd iteration, this can be removed
 
-        return T(y);
+        return type_t(y);
     }
 
-    template <typename T>
-    T length(const tvec3<T> &v){
-        return T(sqrt(dot(v, v)));
+    template <typename type_t>
+    type_t length(const tvec3<type_t> &v) {
+        return type_t(sqrt(dot(v, v)));
     }
 
-    template <typename T>
-    tvec3<T> normalize(const tvec3<T> &v){
+    template <typename type_t>
+    type_t sqrLength(const tvec3<type_t> &v) {
+        return dot(v, v);
+    }
+
+    template <typename type_t>
+    tvec3<type_t> normalize(const tvec3<type_t> &v){
         //real_t l = length(v);
-        //return tvec3<T>(v.x / l, v.y / l, v.z / l);
+        //return tvec3<type_t>(v.x / l, v.y / l, v.z / l);
         return v * isqrt(v);
     }
 
-    template <typename T>
-    T dot(const tvec3<T> &v1, const tvec3<T> &v2){
-        return T(v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
+    template <typename type_t>
+    type_t dot(const tvec3<type_t> &v1, const tvec3<type_t> &v2) {
+        return type_t(v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
     }
 
-    template <typename T>
-    tvec3<T> cross(const tvec3<T> &v1, const tvec3<T> &v2){
-        return tvec3<T>(v1.y * v2.z - v1.z * v2.y,
-            v1.z * v2.x - v1.x * v2.z,
-            v1.x * v2.y - v1.y * v2.x);
+    template <typename type_t>
+    tvec3<type_t> cross(const tvec3<type_t> &v1, const tvec3<type_t> &v2) {
+        return tvec3<type_t>(v1.y * v2.z - v1.z * v2.y,
+                            v1.z * v2.x - v1.x * v2.z,
+                            v1.x * v2.y - v1.y * v2.x);
     }
 }
