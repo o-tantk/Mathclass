@@ -1,42 +1,4 @@
 namespace tfm{
-//    tquat<type_t>::quat(const mat3 &m) {
-//        tquat<type_t> q;
-//        real_t trace, s;
-//
-//        trace = m[0][0] + m[1][1] + m[2][2];
-//        if (trace > 0.0){
-//            s = static_cast<real_t>(sqrt(1.0 + trace));
-//            q.w = s * static_cast<real_t>(0.5);
-//            s = static_cast<real_t>(0.5) / s;
-//            q.x = (m[2][1] - m[1][2]) * s;
-//            q.y = (m[0][2] - m[2][0]) * s;
-//            q.z = (m[1][0] - m[0][1]) * s;
-//        }
-//        else if ((m[0][0] > m[1][1]) && (m[0][0] > m[2][2])){
-//            s = static_cast<real_t>(2.0 * sqrt(1.0 + m[0][0] - m[1][1] - m[2][2]));
-//            q.w = (m[2][1] - m[1][2]) / s;
-//            q.x = static_cast<real_t>(0.25) * s;
-//            q.y = (m[0][1] + m[1][0]) / s;
-//            q.z = (m[0][2] + m[2][0]) / s;
-//        }
-//        else if (m[1][1] > m[2][2]){
-//            s = static_cast<real_t>(2.0 * sqrt(1.0 + m[1][1] - m[0][0] - m[2][2]));
-//            q.w = (m[0][2] - m[2][0]) / s;
-//            q.x = (m[0][1] + m[1][0]) / s;
-//            q.y = static_cast<real_t>(0.25) * s;
-//            q.z = (m[1][2] + m[2][1]) / s;
-//        }
-//        else{
-//            s = static_cast<real_t>(2.0 * sqrt(1.0 + m[2][2] - m[0][0] - m[1][1]));
-//            q.w = (m[1][0] - m[0][1]) / s;
-//            q.x = (m[0][2] + m[2][0]) / s;
-//            q.y = (m[1][2] + m[2][1]) / s;
-//            q.z = static_cast<real_t>(0.25) * s;
-//        }
-//
-//        return q;
-//    }
-
     template <typename type_t>
     tquat<type_t> tquat<type_t>::operator - () const {
         return tquat<type_t>(-(this->w), -(this->v));
@@ -58,19 +20,19 @@ namespace tfm{
     }
 
     template <typename type_t>
-    tquat<type_t> tquat<type_t>::operator * (real_t k) const {
+    tquat<type_t> tquat<type_t>::operator * (type_t k) const {
         return tquat<type_t>(this->w * k, this->v * k);
     }
 
     // q * k
     template <typename type_t>
-    tquat<type_t> tquat<type_t>::operator / (real_t k) const {
+    tquat<type_t> tquat<type_t>::operator / (type_t k) const {
         return tquat<type_t>(this->w / k, this->v / k);
     }
 
     // k * q
     template <typename type_t>
-    tquat<type_t> operator * (real_t k, const tquat<type_t> &q) {
+    tquat<type_t> operator * (type_t k, const tquat<type_t> &q) {
         return tquat<type_t>(q.w * k, q.v * k);
     }
 
@@ -139,7 +101,7 @@ namespace tfm{
     }
 
     template <typename type_t>
-    tquat<type_t> slerp(const quat &q1, const quat &q2, type_t t) {
+    tquat<type_t> slerp(const tquat<type_t> &q1, const tquat<type_t> &q2, type_t t) {
         // This is a general form, but commonly not used in practice.
         //return q1 * exp(t * log(inverse(this-> * q2));
 
@@ -160,7 +122,69 @@ namespace tfm{
         }
         else{
             type_t theta = type_t(acos(cos_theta));
-            return (type_t(sin((static_cast<real_t>(1.0) - t) * theta)) * q1 + type_t(sin(t * theta)) * _q2) / type_t(sin(theta));
+            return (type_t(sin((static_cast<type_t>(1.0) - t) * theta)) * q1 + type_t(sin(t * theta)) * _q2) / type_t(sin(theta));
         }
+    }
+
+    // Quaternion to matrix.
+    template <typename type_t>
+    tmat3<type_t> mat3_cast(const tquat<type_t> &q) {
+        tmat3<type_t> m;
+
+        type_t two_x_square = static_cast<type_t>(2) * q.x * q.x;
+        type_t two_y_square = static_cast<type_t>(2) * q.y * q.y;
+        type_t two_z_square = static_cast<type_t>(2) * q.z * q.z;
+        type_t two_xy = static_cast<type_t>(2) * q.x * q.y;
+        type_t two_yz = static_cast<type_t>(2) * q.y * q.z;
+        type_t two_zx = static_cast<type_t>(2) * q.z * q.x;
+        type_t two_wx = static_cast<type_t>(2) * q.w * q.x;
+        type_t two_wy = static_cast<type_t>(2) * q.w * q.y;
+        type_t two_wz = static_cast<type_t>(2) * q.w * q.z;
+
+        m[0] = tvec3<type_t>(static_cast<type_t>(1) - two_y_square - two_z_square, two_xy - two_wz, two_zx + two_wy);
+        m[1] = tvec3<type_t>(two_xy + two_wz, static_cast<type_t>(1) - two_x_square - two_z_square, two_yz - two_wx);
+        m[2] = tvec3<type_t>(two_zx - two_wy, two_yz + two_wx, static_cast<type_t>(1) - two_x_square - two_y_square);
+
+        return m;
+    }
+
+    // Matrix to quaternion
+    template <typename type_t>
+    tquat<type_t> quat_cast (const tmat3<type_t> &m) {
+        tquat<type_t> q;
+        type_t trace, s;
+
+        trace = m[0][0] + m[1][1] + m[2][2];
+        if (trace > 0.0){
+            s = static_cast<type_t>(sqrt(1.0 + trace));
+            q.w = s * static_cast<type_t>(0.5);
+            s = static_cast<type_t>(0.5) / s;
+            q.x = (m[2][1] - m[1][2]) * s;
+            q.y = (m[0][2] - m[2][0]) * s;
+            q.z = (m[1][0] - m[0][1]) * s;
+        }
+        else if ((m[0][0] > m[1][1]) && (m[0][0] > m[2][2])){
+            s = static_cast<type_t>(2.0 * sqrt(1.0 + m[0][0] - m[1][1] - m[2][2]));
+            q.w = (m[2][1] - m[1][2]) / s;
+            q.x = static_cast<type_t>(0.25) * s;
+            q.y = (m[0][1] + m[1][0]) / s;
+            q.z = (m[0][2] + m[2][0]) / s;
+        }
+        else if (m[1][1] > m[2][2]){
+            s = static_cast<type_t>(2.0 * sqrt(1.0 + m[1][1] - m[0][0] - m[2][2]));
+            q.w = (m[0][2] - m[2][0]) / s;
+            q.x = (m[0][1] + m[1][0]) / s;
+            q.y = static_cast<type_t>(0.25) * s;
+            q.z = (m[1][2] + m[2][1]) / s;
+        }
+        else{
+            s = static_cast<type_t>(2.0 * sqrt(1.0 + m[2][2] - m[0][0] - m[1][1]));
+            q.w = (m[1][0] - m[0][1]) / s;
+            q.x = (m[0][2] + m[2][0]) / s;
+            q.y = (m[1][2] + m[2][1]) / s;
+            q.z = static_cast<type_t>(0.25) * s;
+        }
+
+        return q;
     }
 }

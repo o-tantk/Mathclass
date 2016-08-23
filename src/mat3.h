@@ -29,10 +29,6 @@ namespace tfm{
         tmat3<type_t>&		    operator += (const tmat3<type_t> &m);
         tmat3<type_t>&		    operator -= (const tmat3<type_t> &m);
         tmat3<type_t>&          operator *= (const tmat3<type_t> &m);
-
-        //friend std::ostream&       operator<<(std::ostream &stream, const transf &trsf);
-        //friend std::istream&       operator>>(std::istream &stream, transf &trsf);
-        //      friend const transf   operator*(const transf &trsf1, const transf &trsf2);    // transf.h
     };
 
     template <typename type_t>

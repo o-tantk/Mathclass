@@ -20,29 +20,7 @@ namespace tfm{
         cols[1] = v2;
         cols[2] = v3;
     }
-/*
-    //@ Quater to matrix.
-    template <typename type_t>
-    tmat3<type_t> mat3_cast(const quat &q) {
-        tmat3<type_t> m;
 
-        type_t two_x_square = static_cast<type_t>(2) * q.x * q.x;
-        type_t two_y_square = static_cast<type_t>(2) * q.y * q.y;
-        type_t two_z_square = static_cast<type_t>(2) * q.z * q.z;
-        type_t two_xy = static_cast<type_t>(2) * q.x * q.y;
-        type_t two_yz = static_cast<type_t>(2) * q.y * q.z;
-        type_t two_zx = static_cast<type_t>(2) * q.z * q.x;
-        type_t two_wx = static_cast<type_t>(2) * q.w * q.x;
-        type_t two_wy = static_cast<type_t>(2) * q.w * q.y;
-        type_t two_wz = static_cast<type_t>(2) * q.w * q.z;
-
-        m[0] = tvec3<type_t>(static_cast<type_t>(1) - two_y_square - two_z_square, two_xy - two_wz, two_zx + two_wy);
-        m[1] = tvec3<type_t>(two_xy + two_wz, static_cast<type_t>(1) - two_x_square - two_z_square, two_yz - two_wx);
-        m[2] = tvec3<type_t>(two_zx - two_wy, two_yz + two_wx, static_cast<type_t>(1) - two_x_square - two_y_square);
-
-        return m;
-    }
-*/
     // m[i]
     template <typename type_t>
     tvec3<type_t>& tmat3<type_t>::operator [] (int i) {
