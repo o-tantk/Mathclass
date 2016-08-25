@@ -34,9 +34,11 @@ namespace tfm{
         tmat3<type_t> vvt(u.x * u.x, u.x * u.y, u.x * u.z,
                         u.y * u.x, u.y * u.y, u.y * u.z,
                         u.z * u.x, u.z * u.y, u.z * u.z);
-        tmat3<type_t> vx(0.0, -u.z, u.y,
-                        u.z, 0.0, -u.x,
-                        -u.y, u.x, 0.0);
+        // v cross for column vector convention
+        // (  0 -z  y )
+        // (  z  0 -x )
+        // ( -y  x  0 )
+        tmat3<type_t> vx(0.0, u.z, -u.y, -u.z, 0.0, u.x, u.y, -u.x, 0.0);
         return vvt + static_cast<type_t>(cos(theta)) * (tmat3<type_t>() - vvt) + static_cast<type_t>(sin(theta)) * vx;
     }
 
