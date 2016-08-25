@@ -16,6 +16,10 @@ namespace tfm{
         tmat3(const type_t m[9]);
         tmat3(const tvec3<type_t> &v1, const tvec3<type_t> &v2, const tvec3<type_t> &v3);
 
+        // Matrix access [column][rows]
+        // ( [0][0] [1][0] [2][0] )
+        // ( [0][1] [1][1] [2][1] )
+        // ( [0][2] [1][2] [2][2] )
         tvec3<type_t>&          operator [] (int i);
         const tvec3<type_t>&    operator [] (int i) const;
 
@@ -32,11 +36,18 @@ namespace tfm{
     };
 
     template <typename type_t>
-    tmat3<type_t>		operator * (type_t k, const tmat3<type_t> &m); // Scalar Multiplication
+    tmat3<type_t>		operator *  (type_t k, const tmat3<type_t> &m); // Scalar Multiplication
     template <typename type_t>
     std::ostream&       operator << (std::ostream &stream, const tmat3<type_t> &m);
     template <typename type_t>
     std::istream&       operator >> (std::istream &stream, tmat3<type_t> &m);
+
+    template <typename type_t>
+    type_t              determinant (const tmat3<type_t> &m);
+    template <typename type_t>
+    tmat3<type_t>       transpose   (const tmat3<type_t> &m);
+    template <typename type_t>
+    tmat3<type_t>       inverse     (const tmat3<type_t> &m);
 
     typedef tmat3<float> mat3;
     typedef tmat3<double> dmat3;

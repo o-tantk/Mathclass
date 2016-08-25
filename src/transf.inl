@@ -28,6 +28,11 @@ namespace tfm{
         return transf<type_t>(tmat3<type_t>(x, 0.0, 0.0, 0.0, y, 0.0, 0.0, 0.0, z), tvec3<type_t>());
     }
 
+    template <typename type_t>
+    transf<type_t> scale(const tvec3<type_t> &v) {
+        return transf<type_t>(tmat3<type_t>(v.x, 0.0, 0.0, 0.0, v.y, 0.0, 0.0, 0.0, v.z), tvec3<type_t>());
+    }
+
     // Axis-angle rotation. u must be unit vector.
     template <typename type_t>
     tmat3<type_t> axis_angle_rotation(type_t theta, const tvec3<type_t> &u) {
@@ -40,6 +45,11 @@ namespace tfm{
         // ( -y  x  0 )
         tmat3<type_t> vx(0.0, u.z, -u.y, -u.z, 0.0, u.x, u.y, -u.x, 0.0);
         return vvt + static_cast<type_t>(cos(theta)) * (tmat3<type_t>() - vvt) + static_cast<type_t>(sin(theta)) * vx;
+    }
+
+    template <typename type_t>
+    transf<type_t> rotate(type_t x, type_t y, type_t z) {
+        return rotate(tvec3<type_t>(x, y, z));
     }
 
     template <typename type_t>
@@ -101,6 +111,11 @@ namespace tfm{
     std::istream& operator >> (std::istream &stream, transq<type_t> &t) {
         stream >> t.q >> t.v;
         return stream;
+    }
+
+    template <typename type_t>
+    transq<type_t> q_rotate (type_t x, type_t y, type_t z) {
+        return q_rotate(tvec3<type_t>(x, y, z));
     }
 
     template <typename type_t>

@@ -25,6 +25,10 @@ namespace tfm{
     template <typename type_t>
     transf<type_t>  scale       (type_t x, type_t y, type_t z);
     template <typename type_t>
+    transf<type_t>  scale       (const tvec3<type_t> &v);
+    template <typename type_t>
+    transf<type_t>  rotate      (type_t x, type_t y, type_t z);
+    template <typename type_t>
     transf<type_t>  rotate      (type_t theta, const tvec3<type_t> &direction);
     template <typename type_t>
     transf<type_t>  rotate      (const tvec3<type_t> &v);
@@ -52,6 +56,8 @@ namespace tfm{
     template <typename type_t>
     std::istream&	operator >> (std::istream &stream, transq<type_t> &t);
 
+    template <typename type_t>
+    transq<type_t>  q_rotate    (type_t x, type_t y, type_t z);
     template <typename type_t>
     transq<type_t>  q_rotate    (type_t theta, const tvec3<type_t> &direction);
     template <typename type_t>

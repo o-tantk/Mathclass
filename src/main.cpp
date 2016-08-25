@@ -28,6 +28,21 @@ int main(int argc, char **argv){
     std::cout << "10.0f * m = " << 10.0f * m << std::endl;
     std::cout << "m * 1.5f = " << m * 1.5f << std::endl;
 
+    tfm::mat3 A = tfm::rotate(tfm::pi<float>(), tfm::pi<float>() * 0.5f, tfm::pi<float>() * 0.25f).m;
+    std::cout << "A = " << A << std::endl;
+    std::cout << "det(A) = " << tfm::determinant(A) << std::endl;
+    std::cout << "trs(A) = " << tfm::transpose(A) << std::endl;
+    std::cout << "inv(A) = " << tfm::inverse(A) << std::endl;
+    std::cout << "inv(A) * A = " << tfm::inverse(A) * A << std::endl;
+
+    tfm::mat3 B = tfm::scale(tfm::pi<float>(), -tfm::pi<float>() * 0.5f, tfm::pi<float>() * 0.25f).m;
+    std::cout << "B = " << B << std::endl;
+    std::cout << "det(B) = " << tfm::determinant(B) << std::endl;
+    std::cout << "trs(B) = " << tfm::transpose(B) << std::endl;
+    std::cout << "inv(B) = " << tfm::inverse(B) << std::endl;
+    std::cout << "inv(B) * B = " << tfm::inverse(B) * B << std::endl;
+
+
     std::cout << std::endl;
     // Quaternion
 
@@ -49,9 +64,12 @@ int main(int argc, char **argv){
     std::cout << "mat3 T(10, 10) * v(0, 0) = " << translation * tfm::vec3(0.0f, 0.0f, 1.0f) << std::endl;
     std::cout << "transf T(10, 10, 0) * v(0, 0, 1) = " << tfm::translate(10.0f, 10.0f, 0.0f) * tfm::vec3(0.0f, 0.0f, 1.0f) << std::endl;
     std::cout << "transq T(10, 10, 0) * v(0, 0, 1) = " << tfm::q_translate(10.0f, 10.0f, 0.0f) * tfm::vec3(0.0f, 0.0f, 1.0f) << std::endl;
-    std::cout << "R(0, 0, 90`) * v(1, 0, 0) = " << tfm::rotate(tfm::radians(90.0f), tfm::vec3(0, 0, 1)) * tfm::vec3(1.0f, 0.0f, 0.0f) << std::endl;
-    std::cout << "R(0, 0, 90`) * v(1, 0, 0) = " << tfm::rotate(tfm::vec3(0.0f, 0.0f, tfm::radians(90.0f))) * tfm::vec3(1.0f, 0.0f, 0.0f) << std::endl;
-    std::cout << "R(0, 0, 90`) * v(1, 0, 0) = " << tfm::q_rotate(tfm::vec3(0.0f, 0.0f, tfm::radians(90.0f))) * tfm::vec3(1.0f, 0.0f, 0.0f) << std::endl;
+    std::cout << "transf R(0, 0, 90`) * v(1, 0, 0) = " << tfm::rotate(tfm::radians(90.0f), tfm::vec3(0, 0, 1)) * tfm::vec3(1.0f, 0.0f, 0.0f) << std::endl;
+    std::cout << "transq R(0, 0, 90`) * v(1, 0, 0) = " << tfm::q_rotate(tfm::radians(90.0f), tfm::vec3(0, 0, 1)) * tfm::vec3(1.0f, 0.0f, 0.0f) << std::endl;
+    std::cout << "transf R(0, 90`, 0) * v(1, 0, 0) = " << tfm::rotate(tfm::radians(90.0f), tfm::vec3(0, 1, 0)) * tfm::vec3(1.0f, 0.0f, 0.0f) << std::endl;
+    std::cout << "transq R(0, 90`, 0) * v(1, 0, 0) = " << tfm::q_rotate(tfm::radians(90.0f), tfm::vec3(0, 1, 0)) * tfm::vec3(1.0f, 0.0f, 0.0f) << std::endl;
+    std::cout << "transf R(90`, 0, 0) * v(1, 0, 0) = " << tfm::rotate(tfm::radians(90.0f), tfm::vec3(1, 0, 0)) * tfm::vec3(1.0f, 0.0f, 0.0f) << std::endl;
+    std::cout << "transq R(90`, 0, 0) * v(1, 0, 0) = " << tfm::q_rotate(tfm::radians(90.0f), tfm::vec3(1, 0, 0)) * tfm::vec3(1.0f, 0.0f, 0.0f) << std::endl;
 
     std::cout << std::endl;
 

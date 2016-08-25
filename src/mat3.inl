@@ -132,4 +132,35 @@ namespace tfm{
         stream >> m[0] >> m[1] >> m[2];
         return stream;
     }
+
+    template <typename type_t>
+    type_t determinant (const tmat3<type_t> &m) {
+        return + m[0][0] * (m[1][1] * m[2][2] - m[2][1] * m[1][2])
+                - m[1][0] * (m[0][1] * m[2][2] - m[2][1] * m[0][2])
+                + m[2][0] * (m[0][1] * m[1][2] - m[1][1] * m[0][2]);
+    }
+
+    template <typename type_t>
+    tmat3<type_t> transpose (const tmat3<type_t> &m) {
+        return tmat3<type_t>(m[0][0], m[1][0], m[2][0], m[0][1], m[1][1], m[2][1], m[0][2], m[1][2], m[2][2]);
+    }
+
+    template <typename type_t>
+    tmat3<type_t> inverse (const tmat3<type_t> &m) {
+        type_t D = determinant(m);
+        assert(D != static_cast<type_t>(0));
+        type_t oneOverDeterminant = static_cast<type_t>(1) / D;
+
+        return tmat3<type_t>(
+            + (m[1][1] * m[2][2] - m[2][1] * m[1][2]) * oneOverDeterminant,
+            - (m[0][1] * m[2][2] - m[2][1] * m[0][2]) * oneOverDeterminant,
+            + (m[0][1] * m[1][2] - m[1][1] * m[0][2]) * oneOverDeterminant,
+            - (m[1][0] * m[2][2] - m[2][0] * m[1][2]) * oneOverDeterminant,
+            + (m[0][0] * m[2][2] - m[2][0] * m[0][2]) * oneOverDeterminant,
+            - (m[0][0] * m[1][2] - m[1][0] * m[0][2]) * oneOverDeterminant,
+            + (m[1][0] * m[2][1] - m[2][0] * m[1][1]) * oneOverDeterminant,
+            - (m[0][0] * m[2][1] - m[2][0] * m[0][1]) * oneOverDeterminant,
+            + (m[0][0] * m[1][1] - m[1][0] * m[0][1]) * oneOverDeterminant
+        );
+    }
 }

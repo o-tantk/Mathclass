@@ -147,12 +147,12 @@ namespace tfm{
         y = y * (threehalfs - (x2 * y * y));	// 1st iteration
         //y = y * (threehalfs - (x2 * y * y));	// 2nd iteration, this can be removed
 
-        return type_t(y);
+        return static_cast<type_t>(y);
     }
 
     template <typename type_t>
     type_t length(const tvec3<type_t> &v) {
-        return type_t(sqrt(dot(v, v)));
+        return static_cast<type_t>(sqrt(dot(v, v)));
     }
 
     template <typename type_t>
@@ -169,7 +169,7 @@ namespace tfm{
 
     template <typename type_t>
     type_t dot(const tvec3<type_t> &v1, const tvec3<type_t> &v2) {
-        return type_t(v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
+        return static_cast<type_t>(v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
     }
 
     template <typename type_t>
