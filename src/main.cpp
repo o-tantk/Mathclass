@@ -4,9 +4,10 @@
 int main(int argc, char **argv){
     // Common functions
     std::cout << "pi : " << tfm::pi<float>() << std::endl;
+    std::cout << "clamp(-0.5, 0.0, 1.0) : " << tfm::clamp(-0.5f, 0.0f, 1.0f) << std::endl;
     std::cout << "clamp(1.5, 0.0, 1.0) : " << tfm::clamp(1.5f, 0.0f, 1.0f) << std::endl;
     std::cout << "degrees(pi) : " << tfm::degrees(tfm::pi<float>()) << std::endl;
-    std::cout << "radians(90) : " << tfm::radians(90.0f) << std::endl;
+    std::cout << "radians(180) : " << tfm::radians(180.0f) << std::endl;
 
     std::cout << std::endl;
     // Vector
